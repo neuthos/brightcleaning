@@ -7,6 +7,8 @@ import Image from 'next/image'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Cleaning Tips & Blog | Bright Clean',
   description:
@@ -25,14 +27,21 @@ const categoryLabels: Record<string, string> = {
 export default async function BlogPage() {
   const payload = await getPayload({ config })
 
-  const { docs: articles } = await payload.find({
-    collection: 'articles',
-    where: {
-      status: { equals: 'published' },
-    },
-    sort: '-publishedAt',
-    limit: 20,
-  })
+  let articles: any[] = []
+  try {
+    const result = await payload.find({
+      collection: 'articles',
+      where: {
+        status: { equals: 'published' },
+      },
+      sort: '-publishedAt',
+      limit: 20,
+    })
+    articles = result.docs
+  } catch {
+    // DB may not have tables yet (first deploy)
+    articles = []
+  }
 
   return (
     <>
