@@ -20,11 +20,12 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Railway passes env vars as build args — needed for Payload init during static page generation
+# Build-time env vars for Payload static page generation
+# Use a TEMPORARY local DB during build (the /data volume doesn't exist during docker build)
+# At runtime, Railway's env vars will override these with the real paths
 ARG PAYLOAD_SECRET
-ARG DATABASE_URL
 ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
-ENV DATABASE_URL=${DATABASE_URL}
+ENV DATABASE_URL=file:./build.db
 
 RUN npm run build
 
