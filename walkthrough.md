@@ -37,12 +37,31 @@
 - **sitemap.xml** + **robots.txt** — at `src/app/` root (NOT inside [(frontend)](file://wsl.localhost/Ubuntu/home/neuthos/Neuthos/brightclean/src/data/why-choose-us.ts#1-6))
   - Files: [sitemap.ts](file:///\\wsl.localhost\Ubuntu\home\neuthos\Neuthos\brightclean\src\app\sitemap.ts), [robots.ts](file:///\\wsl.localhost\Ubuntu\home\neuthos\Neuthos\brightclean\src\app\robots.ts)
 
+### Phase 6: Railway Deployment ✅ (code-ready)
+- **`output: 'standalone'`** added to `next.config.mjs` for Docker builds
+- **Dockerfile** rewritten with `/data` volume mount for persistent SQLite DB + media uploads
+  - Entrypoint script symlinks `/data/media` → `/app/media` at runtime
+  - File: [Dockerfile](file:///home/neuthos/Neuthos/brightclean/Dockerfile)
+- **`railway.json`** added — Dockerfile builder, restart on failure
+  - File: [railway.json](file:///home/neuthos/Neuthos/brightclean/railway.json)
+- **Build verified** locally — 0 errors, standalone output generated
+
+#### Railway Setup (manual steps)
+1. Create project on [railway.app](https://railway.app) → Deploy from GitHub → `neuthos/brightcleaning` (branch `develop`)
+2. Add **Volume** → mount path: `/data`
+3. Set **Environment Variables**:
+   - `DATABASE_URL` = `file:///data/database.db`
+   - `PAYLOAD_SECRET` = *(new secure string)*
+   - `NEXT_PUBLIC_SERVER_URL` = `https://your-app.up.railway.app`
+4. Deploy → open `/admin` → create first admin user
+
 ## Remaining
-- **Phase 6: Deploy to Railway** — not started
-- **Cleanup:** Delete old files in [(frontend)/](file://wsl.localhost/Ubuntu/home/neuthos/Neuthos/brightclean/src/data/why-choose-us.ts#1-6): [robots.ts](file://wsl.localhost/Ubuntu/home/neuthos/Neuthos/brightclean/src/app/robots.ts), [sitemap.ts](file://wsl.localhost/Ubuntu/home/neuthos/Neuthos/brightclean/src/app/sitemap.ts), `cleaning-services-[city]/`, `cleaners-[city]/`
+- **Cleanup:** Delete old files in `(frontend)/`: duplicate `robots.ts`, `sitemap.ts`, `cleaning-services-[city]/`, `cleaners-[city]/`
 
 ## Key Gotchas
-1. [robots.ts](file://wsl.localhost/Ubuntu/home/neuthos/Neuthos/brightclean/src/app/robots.ts) / [sitemap.ts](file://wsl.localhost/Ubuntu/home/neuthos/Neuthos/brightclean/src/app/sitemap.ts) must be at `src/app/` root, not inside [(frontend)](file://wsl.localhost/Ubuntu/home/neuthos/Neuthos/brightclean/src/data/why-choose-us.ts#1-6) route group
+1. `robots.ts` / `sitemap.ts` must be at `src/app/` root, not inside `(frontend)` route group
 2. Next.js **doesn't support** partial dynamic segments like `cleaning-services-[city]` — use `[slug]` and parse the slug
 3. PayloadCMS type errors resolve after `payload generate:types` runs (happens on dev server restart)
 4. Tailwind CSS v4 resets all browser styles — `.prose` class needed for rich text content
+5. Railway filesystem is **ephemeral** — SQLite DB and media must live on the Volume (`/data`)
+6. `PAYLOAD_SECRET` in `.env` is in git history — use a **different** secret in Railway
