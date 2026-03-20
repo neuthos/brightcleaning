@@ -20,6 +20,12 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Railway passes env vars as build args — needed for Payload init during static page generation
+ARG PAYLOAD_SECRET
+ARG DATABASE_URL
+ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
+ENV DATABASE_URL=${DATABASE_URL}
+
 RUN npm run build
 
 # Production image, copy all the files and run next
