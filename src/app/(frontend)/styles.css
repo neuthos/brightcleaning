@@ -2,12 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @theme {
-  --color-primary: #0dc0df;
-  --color-primary-dark: #0a9ab3;
-  --color-primary-light: #3dd4ef;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1e40af;
+  --color-primary-light: #3b82f6;
   --color-secondary: #ffde59;
   --color-secondary-dark: #e6c84f;
-  --color-accent: #0a9ab3;
+  --color-accent: #1e40af;
   --color-dark: #1a1a2e;
   --color-dark-lighter: #242447;
   --color-dark-surface: #2a2a50;
@@ -59,8 +59,8 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(13, 192, 223, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(13, 192, 223, 0.6); }
+  0%, 100% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(37, 99, 235, 0.6); }
 }
 
 @keyframes float {

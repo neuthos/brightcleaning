@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
+
 import Image from 'next/image'
+import Link from 'next/link'
 import { siteConfig } from '@/data'
 
 const navLinks = [
@@ -69,7 +70,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium no-underline text-gray-600 transition-colors hover:text-primary"
+              className="text-sm font-bold no-underline text-gray-600 transition-colors hover:text-primary"
             >
               {link.label}
             </a>
@@ -79,7 +80,7 @@ export default function Navbar() {
           <div ref={dropdownRef} className="relative">
             <button
               onClick={() => setLocationsOpen(!locationsOpen)}
-              className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-primary transition-colors bg-transparent border-none cursor-pointer py-1"
+              className="flex items-center gap-1 text-sm font-bold text-gray-600 hover:text-primary transition-colors bg-transparent border-none cursor-pointer py-1"
             >
               📍 Locations
               <svg
@@ -108,22 +109,22 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Phone CTA */}
+          {/* Email CTA */}
           <a
-            href={`tel:${siteConfig.phoneRaw}`}
+            href={`mailto:${siteConfig.email}`}
             className="bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-5 py-2.5 rounded-full no-underline transition-all hover:shadow-lg hover:shadow-primary/30 ml-2"
           >
-            📞 {siteConfig.phone}
+            ✉️ Email Us
           </a>
         </div>
 
-        {/* Mobile — Phone + Menu */}
+        {/* Mobile — Email + Menu */}
         <div className="flex lg:hidden items-center gap-3">
           <a
-            href={`tel:${siteConfig.phoneRaw}`}
+            href={`mailto:${siteConfig.email}`}
             className="bg-primary text-white text-xs font-semibold px-3 py-2 rounded-full no-underline"
           >
-            📞 Call
+            ✉️ Email
           </a>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -161,7 +162,7 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="text-gray-700 text-base font-medium no-underline py-3 border-b border-gray-100 hover:text-primary transition-colors"
+              className="text-gray-700 text-base font-bold no-underline py-3 border-b border-gray-100 hover:text-primary transition-colors"
             >
               {link.label}
             </a>
@@ -186,12 +187,12 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile call CTA */}
+          {/* Mobile email CTA */}
           <a
-            href={`tel:${siteConfig.phoneRaw}`}
+            href={`mailto:${siteConfig.email}`}
             className="bg-primary text-white text-center font-semibold py-3 rounded-full no-underline mt-3"
           >
-            📞 Call {siteConfig.phone}
+            ✉️ Email Us
           </a>
         </div>
       </div>

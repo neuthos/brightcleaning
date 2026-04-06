@@ -1,27 +1,48 @@
 import { NextResponse } from 'next/server'
+import { getEmailByPostcode, isServiceablePostcode } from '@/utils/postcode-router'
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
 
-    const { name, email, phone, city, service, frequency, bedrooms, bathrooms, message } = body
+    const { name, email, phone, postcode, city, service, frequency, bedrooms, bathrooms, message } = body
 
     // Validate required fields
-    if (!name || !email || !phone || !city || !service) {
+    if (!name || !email || !phone || !postcode || !service) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Missing required fields (name, email, phone, postcode, service)' },
         { status: 400 }
       )
     }
+
+    // Validate postcode format
+    if (!isServiceablePostcode(postcode)) {
+      return NextResponse.json(
+        {
+          error: 'Please provide a valid 4-digit Australian postcode.',
+          postcode,
+        },
+        { status: 400 }
+      )
+    }
+
+    // Get email routing based on postcode (defaults to Adelaide for non-matching postcodes)
+    const emailConfig = getEmailByPostcode(postcode)
 
     // Build email content
     const emailBody = [
       `New Enquiry from BrightClean Website`,
       ``,
+      `Region: ${emailConfig.cityName} (${emailConfig.region.toUpperCase()})`,
+      ``,
+      `Customer Details:`,
       `Name: ${name}`,
       `Email: ${email}`,
       `Phone: ${phone}`,
-      `City: ${city}`,
+      postcode ? `Postcode: ${postcode}` : '',
+      city ? `City: ${city}` : '',
+      ``,
+      `Service Details:`,
       `Service: ${service}`,
       frequency ? `Frequency: ${frequency}` : '',
       bedrooms ? `Bedrooms: ${bedrooms}` : '',
@@ -31,8 +52,9 @@ export async function POST(request: Request) {
       .filter(Boolean)
       .join('\n')
 
-    // For now, log the enquiry (replace with Nodemailer/Resend later)
+    // Log the enquiry with routing info
     console.log('=== NEW ENQUIRY ===')
+    console.log(`Routing to: ${emailConfig.email} (${emailConfig.region})`)
     console.log(emailBody)
     console.log('==================')
 
@@ -41,12 +63,16 @@ export async function POST(request: Request) {
     // const resend = new Resend(process.env.RESEND_API_KEY)
     // await resend.emails.send({
     //   from: 'noreply@bright-clean.au',
-    //   to: 'brightclean.2020@gmail.com',
-    //   subject: `New Enquiry: ${service} - ${name}`,
+    //   to: emailConfig.email,  // Dynamic email based on postcode
+    //   subject: `New Enquiry: ${service} - ${name} (${emailConfig.cityName})`,
     //   text: emailBody,
     // })
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({
+      success: true,
+      region: emailConfig.region,
+      routedTo: emailConfig.email,
+    })
   } catch (error) {
     console.error('Enquiry error:', error)
     return NextResponse.json(

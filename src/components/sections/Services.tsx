@@ -13,7 +13,7 @@ export default function Services() {
             Professional Cleaning Services
           </h2>
           <p className="text-gray-500 max-w-xl mx-auto">
-            From regular house cleaning to specialised services — we have
+            From regular house cleaning to specialised cleaning services — we have
             everything covered for your home and office.
           </p>
         </div>

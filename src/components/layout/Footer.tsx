@@ -42,8 +42,8 @@ export default function Footer() {
                 'End of Lease Cleaning',
                 'Office Cleaning',
                 'NDIS Cleaning',
-                'Deep Cleaning',
-                'Carpet Cleaning',
+                'Spring Cleaning',
+                'Oven Cleaning',
               ].map((s) => (
                 <li key={s}>
                   <a

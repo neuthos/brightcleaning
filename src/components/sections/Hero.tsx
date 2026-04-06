@@ -12,8 +12,8 @@ interface HeroProps {
 export default function Hero({ city, state, suburbs }: HeroProps) {
   const locationText = city ? `in ${city}` : 'in Australia'
   const subtitleText = city
-    ? `Bonded & insured cleaners serving ${city}${state ? `, ${state}` : ''}. NDIS approved, end of lease specialists.`
-    : 'Bonded & insured cleaners, NDIS approved, end of lease specialists. Servicing Adelaide, Perth, Sydney & Melbourne.'
+    ? `Trusted and Insured cleaners, housekeeper, NDIS and End of Lease Specialist serving ${city}${state ? `, ${state}` : ''}.`
+    : 'Trusted and Insured cleaners, housekeeper, NDIS and End of Lease Specialist.'
 
   return (
     <section
@@ -40,7 +40,7 @@ export default function Hero({ city, state, suburbs }: HeroProps) {
             </div>
 
             {/* Heading */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-[3.25rem] font-extrabold text-dark leading-tight mb-5">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-[3.75rem] font-extrabold text-dark leading-tight mb-5">
               Professional House Cleaning{' '}
               <span className="text-primary">{locationText}</span>
             </h1>
@@ -74,26 +74,26 @@ export default function Hero({ city, state, suburbs }: HeroProps) {
             <div className="flex flex-wrap gap-5 pt-6 border-t border-gray-200">
               {[
                 { icon: '🛡️', text: 'Fully Insured' },
-                { icon: '✅', text: 'NDIS Registered' },
-                { icon: '⭐', text: '100% Guarantee' },
-                { icon: '🌿', text: 'Eco-Friendly' },
+                { icon: '👤', text: 'Same Cleaners and Time' },
+                { icon: '⭐', text: 'Satisfaction Guarantee' },
+                { icon: '🌿', text: 'Eco Friendly Products' },
               ].map((badge) => (
                 <div key={badge.text} className="flex items-center gap-2">
                   <span className="text-lg">{badge.icon}</span>
-                  <span className="text-gray-600 text-sm font-medium">
+                  <span className="text-gray-700 text-sm font-bold">
                     {badge.text}
                   </span>
                 </div>
               ))}
             </div>
 
-            {/* Quick call CTA */}
+            {/* Quick email CTA */}
             <div className="mt-8 flex items-center gap-4">
               <a
-                href={`tel:${siteConfig.phoneRaw}`}
+                href={`mailto:${siteConfig.email}`}
                 className="inline-flex items-center gap-2 bg-dark hover:bg-dark-lighter text-white text-sm font-semibold px-6 py-3 rounded-full no-underline transition-all hover:shadow-lg"
               >
-                📞 Call {siteConfig.phone}
+                ✉️ Email Us
               </a>
               <span className="text-sm text-gray-400 hidden sm:inline">or use the wizard →</span>
             </div>
@@ -101,13 +101,10 @@ export default function Hero({ city, state, suburbs }: HeroProps) {
 
           {/* Right — Quote Wizard */}
           <div className="bg-white rounded-2xl shadow-xl shadow-gray-200/60 border border-gray-100 p-6 sm:p-8">
-            <h2 className="text-xl font-bold text-dark mb-1 text-center">
-              Get an Instant Quote
+            <h2 className="text-2xl sm:text-3xl font-bold text-dark mb-6 text-center">
+              Get a Quote
             </h2>
-            <p className="text-gray-400 text-sm mb-4 text-center">
-              Quick & easy — takes 30 seconds
-            </p>
-            <QuoteWizard defaultCity={city || ''} />
+            <QuoteWizard />
           </div>
         </div>
       </div>

@@ -8,17 +8,17 @@ export const whyChooseUs: USP[] = [
   {
     title: 'Trusted & Insured',
     description:
-      'All our cleaners are fully insured, bonded, and background-checked. Your home is in safe hands.',
+      'All our cleaners are fully insured, police checked, and background-verified. Your home is in safe hands.',
     icon: '🛡️',
   },
   {
-    title: 'NDIS Registered',
+    title: 'NDIS Specialist',
     description:
-      'We are a registered NDIS provider, offering professional cleaning support for participants.',
+      'We are offering professional cleaning support for NDIS participants.',
     icon: '✅',
   },
   {
-    title: '100% Satisfaction Guarantee',
+    title: 'Satisfaction Guarantee',
     description:
       "Not happy? We'll come back and re-clean at no extra cost. Your satisfaction is our priority.",
     icon: '⭐',
@@ -30,15 +30,15 @@ export const whyChooseUs: USP[] = [
     icon: '🌿',
   },
   {
-    title: 'Flexible Scheduling',
+    title: 'Same Cleaner and Time',
     description:
-      'Weekly, fortnightly, or one-off cleans — we work around your schedule. Easy online booking.',
-    icon: '📅',
+      'Enjoy the consistency of the same trusted cleaner at your preferred time, every visit.',
+    icon: '👤',
   },
   {
-    title: 'Local & Reliable',
+    title: 'We Bring Everything',
     description:
-      'Locally owned and operated in Adelaide, Perth, Sydney, and Melbourne. We know your neighbourhood.',
-    icon: '📍',
+      'We bring equipment and product to your home.',
+    icon: '🧰',
   },
 ]

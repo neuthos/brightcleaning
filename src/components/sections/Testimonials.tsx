@@ -26,13 +26,24 @@ function StarRating({ rating }: { rating: number }) {
 export default function Testimonials({ testimonials: propTestimonials }: TestimonialsProps) {
   const items = propTestimonials && propTestimonials.length > 0 ? propTestimonials : allTestimonials
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+
+  const goToPrevious = () => {
+    setActiveIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1))
+  }
+
+  const goToNext = () => {
+    setActiveIndex((prev) => (prev + 1) % items.length)
+  }
 
   useEffect(() => {
+    if (isPaused) return
+
     const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % items.length)
+      goToNext()
     }, 5000)
     return () => clearInterval(timer)
-  }, [items.length])
+  }, [items.length, isPaused, activeIndex])
 
   return (
     <section id="testimonials" className="py-20 bg-gray-50">
@@ -97,6 +108,46 @@ export default function Testimonials({ testimonials: propTestimonials }: Testimo
               · Based on {items.length}+ reviews
             </span>
           </div>
+        </div>
+
+        {/* Navigation Controls */}
+        <div className="flex flex-col items-center gap-6 mt-8">
+          {/* Arrow Navigation */}
+          <div className="flex items-center gap-4">
+            <button
+              onClick={goToPrevious}
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-white hover:bg-primary hover:text-white text-gray-700 font-bold text-xl transition-all border-2 border-gray-200 hover:border-primary cursor-pointer shadow-sm"
+              aria-label="Previous review"
+            >
+              ←
+            </button>
+
+            {/* Pause/Play Button */}
+            <button
+              onClick={() => setIsPaused(!isPaused)}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium text-sm transition-all border-none cursor-pointer"
+            >
+              {isPaused ? '▶️ Play' : '⏸️ Pause'}
+            </button>
+
+            <button
+              onClick={goToNext}
+              className="flex items-center justify-center w-12 h-12 rounded-full bg-white hover:bg-primary hover:text-white text-gray-700 font-bold text-xl transition-all border-2 border-gray-200 hover:border-primary cursor-pointer shadow-sm"
+              aria-label="Next review"
+            >
+              →
+            </button>
+          </div>
+
+          {/* Facebook CTA */}
+          <a
+            href="https://www.facebook.com/BrightCleanOZ/reviews"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-primary hover:text-primary-dark font-semibold text-sm no-underline transition-colors"
+          >
+            Read more reviews on Facebook →
+          </a>
         </div>
       </div>
     </section>

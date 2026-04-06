@@ -50,10 +50,10 @@ export const services: Service[] = [
     id: 'ndis-cleaning',
     title: 'NDIS Cleaning',
     description:
-      'Registered NDIS cleaning provider. We support participants with professional, compassionate home cleaning services.',
+      'We are offering professional cleaning support for NDIS participants with compassionate and reliable service.',
     icon: '♿',
     features: [
-      'NDIS registered provider',
+      'NDIS specialist support',
       'Flexible scheduling',
       'Personalised cleaning plans',
       'Trained & background-checked staff',
@@ -61,7 +61,7 @@ export const services: Service[] = [
   },
   {
     id: 'deep-cleaning',
-    title: 'Deep Cleaning',
+    title: 'Spring Cleaning',
     description:
       'Intensive deep cleaning for homes that need extra attention. Perfect for spring cleaning or move-in preparation.',
     icon: '✨',
@@ -73,16 +73,16 @@ export const services: Service[] = [
     ],
   },
   {
-    id: 'carpet-cleaning',
-    title: 'Carpet & Upholstery Cleaning',
+    id: 'oven-cleaning',
+    title: 'Oven Cleaning',
     description:
-      'Professional carpet steam cleaning and upholstery care. Remove stains, allergens, and odours for a fresh home.',
-    icon: '🧹',
+      'Professional deep cleaning for ovens and kitchen appliances, removing grease and buildup for a sparkling finish.',
+    icon: '🔥',
     features: [
-      'Hot water extraction',
-      'Stain & odour removal',
-      'Upholstery cleaning',
-      'Quick drying times',
+      'Deep grease removal',
+      'Rack and tray cleaning',
+      'Door glass polishing',
+      'Professional products used',
     ],
   },
 ]

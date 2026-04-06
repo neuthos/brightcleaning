@@ -4,69 +4,70 @@ import { useState } from 'react'
 import { siteConfig } from '@/data'
 
 export default function FloatingContact() {
-  const [open, setOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const whatsappUrl = `https://wa.me/${siteConfig.whatsappNumber}?text=${encodeURIComponent(
     `Hi Bright Clean! I'd like to enquire about your cleaning services.`
   )}`
-  const messengerUrl = `https://m.me/${siteConfig.messengerUsername}`
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+      setIsOpen(false)
+    }
+  }
+
+  const handleWhatsApp = () => {
+    window.open(whatsappUrl, '_blank')
+    setIsOpen(false)
+  }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
-      {/* Expanded Options */}
-      <div
-        className={`flex flex-col gap-3 transition-all duration-300 ${
-          open
-            ? 'opacity-100 translate-y-0'
-            : 'opacity-0 translate-y-4 pointer-events-none'
-        }`}
-      >
-        {/* WhatsApp */}
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-3 bg-[#25D366] hover:bg-[#1da851] text-white rounded-full px-5 py-3 shadow-lg no-underline transition-all hover:scale-105 text-sm font-medium"
-        >
-          💬 WhatsApp
-        </a>
+    <div className="fixed bottom-6 right-6 z-50">
+      {/* Expandable Menu */}
+      {isOpen && (
+        <div className="absolute bottom-20 right-0 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden min-w-[220px] animate-fadeIn">
+          {/* Book Now Option */}
+          <button
+            onClick={() => scrollToSection('hero')}
+            className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors cursor-pointer border-none bg-white flex items-center gap-3"
+          >
+            <span className="text-xl">📋</span>
+            <span className="font-semibold text-dark text-sm">Get a Quote</span>
+          </button>
 
-        {/* Messenger */}
-        <a
-          href={messengerUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-3 bg-[#0084FF] hover:bg-[#006acc] text-white rounded-full px-5 py-3 shadow-lg no-underline transition-all hover:scale-105 text-sm font-medium"
-        >
-          💬 Messenger
-        </a>
+          {/* Divider */}
+          <div className="border-t border-gray-200" />
 
-        {/* Phone */}
-        <a
-          href={`tel:${siteConfig.phoneRaw}`}
-          className="flex items-center gap-3 bg-primary hover:bg-primary-dark text-white rounded-full px-5 py-3 shadow-lg no-underline transition-all hover:scale-105 text-sm font-medium"
-        >
-          📞 Call Us
-        </a>
+          {/* Contact Us On Email Option */}
+          <button
+            onClick={() => scrollToSection('contact')}
+            className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors cursor-pointer border-none bg-white flex items-center gap-3"
+          >
+            <span className="text-xl">📧</span>
+            <span className="font-semibold text-dark text-sm">Contact Us On Email</span>
+          </button>
 
-        {/* Email */}
-        <a
-          href={`mailto:${siteConfig.email}`}
-          className="flex items-center gap-3 bg-gray-700 hover:bg-gray-800 text-white rounded-full px-5 py-3 shadow-lg no-underline transition-all hover:scale-105 text-sm font-medium"
-        >
-          ✉️ Email
-        </a>
-      </div>
+          {/* WhatsApp Option */}
+          <button
+            onClick={handleWhatsApp}
+            className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors cursor-pointer border-none bg-white flex items-center gap-3"
+          >
+            <span className="text-xl">💬</span>
+            <span className="font-semibold text-dark text-sm">WhatsApp</span>
+          </button>
+        </div>
+      )}
 
-      {/* Main FAB */}
+      {/* Main Button */}
       <button
-        onClick={() => setOpen(!open)}
-        className={`w-16 h-16 rounded-full bg-primary hover:bg-primary-dark text-white text-2xl shadow-xl cursor-pointer border-none transition-all duration-300 animate-pulse-glow hover:scale-110 ${
-          open ? 'rotate-45' : ''
-        }`}
-        aria-label="Contact us"
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white rounded-full px-6 py-4 shadow-2xl transition-all hover:scale-105 font-bold text-base cursor-pointer border-none"
+        aria-label="Contact options"
       >
-        {open ? '✕' : '💬'}
+        <span className="text-xl">{isOpen ? '✕' : '📞'}</span>
+        <span>Book Now!</span>
       </button>
     </div>
   )

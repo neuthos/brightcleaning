@@ -79,7 +79,7 @@ src/
 - **Founder/Owner**: (variable in site-config.ts)
 - **Developer(s)**: AI-assisted development
 - **Contact Email**: brightclean.2020@gmail.com (variable)
-- **Contact Phone**: 0428948776 (variable)
+- **Contact Phone**: 📞 0426 946 776 (variable)
 
 ## Feature Checklist
 - [ ] Landing Page (all 11 sections)
