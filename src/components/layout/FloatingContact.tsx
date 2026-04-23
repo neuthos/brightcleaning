@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { siteConfig } from '@/data'
+import { Phone, ClipboardList, Mail, MessageCircle, X } from 'lucide-react'
 
 export default function FloatingContact() {
   const [isOpen, setIsOpen] = useState(false)
@@ -33,7 +34,7 @@ export default function FloatingContact() {
             onClick={() => scrollToSection('hero')}
             className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors cursor-pointer border-none bg-white flex items-center gap-3"
           >
-            <span className="text-xl">📋</span>
+            <ClipboardList className="w-5 h-5 text-primary" />
             <span className="font-semibold text-dark text-sm">Get a Quote</span>
           </button>
 
@@ -45,7 +46,7 @@ export default function FloatingContact() {
             onClick={() => scrollToSection('contact')}
             className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors cursor-pointer border-none bg-white flex items-center gap-3"
           >
-            <span className="text-xl">📧</span>
+            <Mail className="w-5 h-5 text-primary" />
             <span className="font-semibold text-dark text-sm">Contact Us On Email</span>
           </button>
 
@@ -54,7 +55,7 @@ export default function FloatingContact() {
             onClick={handleWhatsApp}
             className="w-full px-6 py-4 text-left hover:bg-gray-50 transition-colors cursor-pointer border-none bg-white flex items-center gap-3"
           >
-            <span className="text-xl">💬</span>
+            <MessageCircle className="w-5 h-5 text-green-500" />
             <span className="font-semibold text-dark text-sm">WhatsApp</span>
           </button>
         </div>
@@ -66,7 +67,7 @@ export default function FloatingContact() {
         className="flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white rounded-full px-6 py-4 shadow-2xl transition-all hover:scale-105 font-bold text-base cursor-pointer border-none"
         aria-label="Contact options"
       >
-        <span className="text-xl">{isOpen ? '✕' : '📞'}</span>
+        {isOpen ? <X className="w-5 h-5" /> : <Phone className="w-5 h-5" />}
         <span>Book Now!</span>
       </button>
     </div>

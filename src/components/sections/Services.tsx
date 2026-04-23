@@ -1,4 +1,16 @@
 import { services } from '@/data'
+import type { ServiceIconKey } from '@/data/services'
+import { Home, KeyRound, Building2, Accessibility, Sparkles, Flame, Check } from 'lucide-react'
+import type { ReactNode } from 'react'
+
+const SERVICE_ICONS: Record<ServiceIconKey, ReactNode> = {
+  home: <Home className="w-12 h-12" />,
+  key: <KeyRound className="w-12 h-12" />,
+  building: <Building2 className="w-12 h-12" />,
+  accessibility: <Accessibility className="w-12 h-12" />,
+  sparkles: <Sparkles className="w-12 h-12" />,
+  flame: <Flame className="w-12 h-12" />,
+}
 
 export default function Services() {
   return (
@@ -26,9 +38,9 @@ export default function Services() {
               className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary/30"
             >
               {/* Icon Header */}
-              <div className="bg-gradient-to-br from-primary/5 to-primary/10 p-6 text-center group-hover:from-primary group-hover:to-primary-dark transition-all duration-300">
-                <span className="text-5xl group-hover:scale-110 inline-block transition-transform">
-                  {service.icon}
+              <div className="bg-gradient-to-br from-primary/5 to-primary/10 p-6 flex justify-center text-primary group-hover:from-primary group-hover:to-primary-dark group-hover:text-white transition-all duration-300">
+                <span className="group-hover:scale-110 inline-block transition-transform">
+                  {SERVICE_ICONS[service.iconKey]}
                 </span>
               </div>
 
@@ -48,7 +60,7 @@ export default function Services() {
                       key={i}
                       className="flex items-start gap-2 text-sm text-gray-600"
                     >
-                      <span className="text-primary mt-0.5 shrink-0">✓</span>
+                      <Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />
                       {f}
                     </li>
                   ))}
@@ -56,7 +68,7 @@ export default function Services() {
 
                 {/* CTA */}
                 <a
-                  href="#contact"
+                  href="#hero"
                   className="inline-flex items-center gap-1 text-primary font-semibold text-sm mt-6 no-underline hover:gap-2 transition-all"
                 >
                   Get a Quote →

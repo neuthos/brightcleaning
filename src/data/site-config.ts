@@ -4,7 +4,7 @@ export const siteConfig = {
   domain: 'bright-clean.au',
   phone: '0426 946 776',
   phoneRaw: '0426946776',
-  email: 'brightclean.2021@gmail.com',
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'brightclean.2021@gmail.com',
   whatsappNumber: '61426946776',
   messengerUsername: '',
   abn: '', // To be filled
@@ -25,6 +25,6 @@ export const siteConfig = {
     postcode: '',
     country: 'Australia',
   },
-} as const
+} satisfies Record<string, unknown>
 
 export type SiteConfig = typeof siteConfig

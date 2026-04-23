@@ -1,4 +1,5 @@
 import { serviceAreas } from '@/data'
+import { MapPin } from 'lucide-react'
 
 export default function ServiceAreas() {
   return (
@@ -26,7 +27,7 @@ export default function ServiceAreas() {
               className="bg-dark-lighter rounded-2xl p-6 hover:bg-dark-surface border border-white/5 hover:border-primary/30 transition-all duration-300"
             >
               <div className="flex items-center gap-3 mb-5">
-                <span className="text-2xl">📍</span>
+                <MapPin className="w-6 h-6 text-primary" />
                 <div>
                   <h3 className="text-xl font-bold m-0">{area.city}</h3>
                   <span className="text-primary text-xs font-medium">

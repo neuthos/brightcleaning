@@ -11,12 +11,12 @@ export interface EmailConfig {
   cityName: string
 }
 
-// Email configuration per region
+// Email configuration per region (from environment variables, with fallback defaults)
 const REGION_EMAILS: Record<'adelaide' | 'perth' | 'sydney' | 'melbourne', string> = {
-  adelaide: 'adelaide@brightcleaning.com',
-  perth: 'perth@brightcleaning.com',
-  sydney: 'sydney@brightcleaning.com',
-  melbourne: 'melbourne@brightcleaning.com',
+  adelaide: process.env.EMAIL_ADELAIDE || 'adelaide@brightcleaning.com',
+  perth: process.env.EMAIL_PERTH || 'perth@brightcleaning.com',
+  sydney: process.env.EMAIL_SYDNEY || 'sydney@brightcleaning.com',
+  melbourne: process.env.EMAIL_MELBOURNE || 'melbourne@brightcleaning.com',
 }
 
 // Australian postcode ranges

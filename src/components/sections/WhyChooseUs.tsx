@@ -1,4 +1,16 @@
 import { whyChooseUs } from '@/data'
+import type { USPIconKey } from '@/data/why-choose-us'
+import { Shield, CheckCircle2, Star, Leaf, UserCheck, Wrench } from 'lucide-react'
+import type { ReactNode } from 'react'
+
+const USP_ICONS: Record<USPIconKey, ReactNode> = {
+  shield: <Shield className="w-10 h-10" />,
+  check: <CheckCircle2 className="w-10 h-10" />,
+  star: <Star className="w-10 h-10" />,
+  leaf: <Leaf className="w-10 h-10" />,
+  user: <UserCheck className="w-10 h-10" />,
+  wrench: <Wrench className="w-10 h-10" />,
+}
 
 export default function WhyChooseUs() {
   return (
@@ -25,8 +37,8 @@ export default function WhyChooseUs() {
               key={i}
               className="group p-8 rounded-2xl bg-gray-50 hover:bg-gradient-to-br hover:from-primary hover:to-primary-dark transition-all duration-300 cursor-default"
             >
-              <div className="text-4xl mb-5 group-hover:scale-110 transition-transform">
-                {usp.icon}
+              <div className="text-primary group-hover:text-white mb-5 group-hover:scale-110 transition-all">
+                {USP_ICONS[usp.iconKey]}
               </div>
               <h3 className="text-xl font-bold text-dark group-hover:text-white mb-3 transition-colors">
                 {usp.title}

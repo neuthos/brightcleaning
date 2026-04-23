@@ -3,6 +3,7 @@ import config from '@payload-config'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { FileText } from 'lucide-react'
 
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -83,7 +84,7 @@ export default async function BlogPage() {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/10 to-primary/5">
-                        <span className="text-4xl">📝</span>
+                        <FileText className="w-10 h-10 text-primary/30" />
                       </div>
                     )}
                   </div>
@@ -121,7 +122,7 @@ export default async function BlogPage() {
             </div>
           ) : (
             <div className="text-center py-20">
-              <span className="text-5xl block mb-4">📝</span>
+              <FileText className="w-12 h-12 text-primary/30 mx-auto mb-4" />
               <h2 className="text-xl font-bold text-dark mb-2">Coming Soon!</h2>
               <p className="text-gray-500 max-w-md mx-auto">
                 We&apos;re working on helpful cleaning tips and guides. Check back soon!

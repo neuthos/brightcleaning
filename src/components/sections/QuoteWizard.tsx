@@ -1,6 +1,33 @@
 'use client'
 
 import { useState } from 'react'
+import {
+  Home,
+  KeyRound,
+  Building2,
+  BedDouble,
+  ShowerHead,
+  Sunrise,
+  Sun,
+  Sunset,
+  Flame,
+  Brush,
+  SprayCan,
+  PanelTop,
+  Camera,
+  Car,
+  TreePalm,
+  Archive,
+  Snowflake,
+  Sprout,
+  Trash2,
+  Armchair,
+  UtensilsCrossed,
+  CheckCircle2,
+  Loader2,
+  ArrowLeft,
+  ArrowRight,
+} from 'lucide-react'
 
 // ============================================================================
 // TYPES & INTERFACES
@@ -173,7 +200,17 @@ export default function QuoteWizard() {
       }
       return !!(data.name.trim() && data.email.trim() && data.phone.trim() && data.postcode.trim())
     }
-    return true // Other steps have no hard requirements
+    // Schedule step validation
+    if (data.serviceType === 'regular' && currentStep === 3) {
+      return !!data.frequency
+    }
+    if (data.serviceType === 'endoflease' && currentStep === 3) {
+      return !!(data.dateFrom && data.dateTo)
+    }
+    if (data.serviceType === 'office' && currentStep === 3) {
+      return data.flexibleTiming || data.preferredDays.length > 0
+    }
+    return true
   }
 
   const handleSubmit = async () => {
@@ -241,7 +278,7 @@ export default function QuoteWizard() {
   if (submitted) {
     return (
       <div className="text-center py-12">
-        <span className="text-6xl block mb-6">✅</span>
+        <CheckCircle2 className="w-16 h-16 text-primary mx-auto mb-6" />
         <h3 className="text-2xl font-bold text-dark mb-3">Quote Request Received!</h3>
         <p className="text-gray-500 mb-6 max-w-md mx-auto">
           Thank you! We&apos;ve received your request and will get back to you within 2 hours during
@@ -280,55 +317,53 @@ export default function QuoteWizard() {
       )}
 
       {/* Step Content */}
-      <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 min-h-[400px]">
-        {currentStep === 1 && <Step1ServiceSelection data={data} updateData={updateData} />}
+      {currentStep === 1 && <Step1ServiceSelection data={data} updateData={updateData} />}
 
-        {/* REGULAR CLEANING FLOW */}
-        {data.serviceType === 'regular' && currentStep === 2 && (
-          <Step2APropertyDetails data={data} updateData={updateData} />
-        )}
-        {data.serviceType === 'regular' && currentStep === 3 && (
-          <Step3AScheduling data={data} updateData={updateData} />
-        )}
-        {data.serviceType === 'regular' && currentStep === 4 && (
-          <Step4AContact data={data} updateData={updateData} />
-        )}
+      {/* REGULAR CLEANING FLOW */}
+      {data.serviceType === 'regular' && currentStep === 2 && (
+        <Step2APropertyDetails data={data} updateData={updateData} />
+      )}
+      {data.serviceType === 'regular' && currentStep === 3 && (
+        <Step3AScheduling data={data} updateData={updateData} />
+      )}
+      {data.serviceType === 'regular' && currentStep === 4 && (
+        <Step4AContact data={data} updateData={updateData} />
+      )}
 
-        {/* END OF LEASE FLOW */}
-        {data.serviceType === 'endoflease' && currentStep === 2 && (
-          <Step2BPropertyEOL data={data} updateData={updateData} />
-        )}
-        {data.serviceType === 'endoflease' && currentStep === 3 && (
-          <Step3BSchedulingEOL data={data} updateData={updateData} />
-        )}
-        {data.serviceType === 'endoflease' && currentStep === 4 && (
-          <Step4BDeepClean data={data} updateData={updateData} />
-        )}
-        {data.serviceType === 'endoflease' && currentStep === 5 && (
-          <Step5BAddons data={data} updateData={updateData} />
-        )}
-        {data.serviceType === 'endoflease' && currentStep === 6 && (
-          <Step6BContact data={data} updateData={updateData} />
-        )}
+      {/* END OF LEASE FLOW */}
+      {data.serviceType === 'endoflease' && currentStep === 2 && (
+        <Step2BPropertyEOL data={data} updateData={updateData} />
+      )}
+      {data.serviceType === 'endoflease' && currentStep === 3 && (
+        <Step3BSchedulingEOL data={data} updateData={updateData} />
+      )}
+      {data.serviceType === 'endoflease' && currentStep === 4 && (
+        <Step4BDeepClean data={data} updateData={updateData} />
+      )}
+      {data.serviceType === 'endoflease' && currentStep === 5 && (
+        <Step5BAddons data={data} updateData={updateData} />
+      )}
+      {data.serviceType === 'endoflease' && currentStep === 6 && (
+        <Step6BContact data={data} updateData={updateData} />
+      )}
 
-        {/* OFFICE CLEANING FLOW */}
-        {data.serviceType === 'office' && currentStep === 2 && (
-          <Step2CSpaceDetails data={data} updateData={updateData} />
-        )}
-        {data.serviceType === 'office' && currentStep === 3 && (
-          <Step3CSchedulingOffice data={data} updateData={updateData} />
-        )}
-        {data.serviceType === 'office' && currentStep === 4 && (
-          <Step4CContact data={data} updateData={updateData} />
-        )}
+      {/* OFFICE CLEANING FLOW */}
+      {data.serviceType === 'office' && currentStep === 2 && (
+        <Step2CSpaceDetails data={data} updateData={updateData} />
+      )}
+      {data.serviceType === 'office' && currentStep === 3 && (
+        <Step3CSchedulingOffice data={data} updateData={updateData} />
+      )}
+      {data.serviceType === 'office' && currentStep === 4 && (
+        <Step4CContact data={data} updateData={updateData} />
+      )}
 
-        {/* Error message */}
-        {error && (
-          <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
-            {error}
-          </div>
-        )}
-      </div>
+      {/* Error message */}
+      {error && (
+        <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm">
+          {error}
+        </div>
+      )}
 
       {/* Navigation Buttons */}
       {data.serviceType && (
@@ -338,7 +373,7 @@ export default function QuoteWizard() {
               onClick={goBack}
               className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-4 rounded-xl cursor-pointer border-none transition-all"
             >
-              ← Back
+              <span className="inline-flex items-center gap-1"><ArrowLeft className="w-4 h-4" /> Back</span>
             </button>
           )}
           <button
@@ -346,11 +381,13 @@ export default function QuoteWizard() {
             disabled={!canProceed() || isSubmitting}
             className="flex-1 bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl cursor-pointer border-none transition-all hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isSubmitting
-              ? '⏳ Submitting...'
-              : currentStep === totalSteps
-                ? 'Submit Quote Request →'
-                : 'Next →'}
+            {isSubmitting ? (
+              <span className="inline-flex items-center gap-2"><Loader2 className="w-4 h-4 animate-spin" /> Submitting...</span>
+            ) : currentStep === totalSteps ? (
+              <span className="inline-flex items-center gap-1">Submit Quote Request <ArrowRight className="w-4 h-4" /></span>
+            ) : (
+              <span className="inline-flex items-center gap-1">Next <ArrowRight className="w-4 h-4" /></span>
+            )}
           </button>
         </div>
       )}
@@ -373,19 +410,19 @@ function Step1ServiceSelection({
   const services = [
     {
       id: 'regular' as ServiceType,
-      icon: '🏠',
+      icon: <Home className="w-10 h-10" />,
       title: 'Regular Cleaning',
       description: 'House, NDIS, or Spring cleaning',
     },
     {
       id: 'endoflease' as ServiceType,
-      icon: '🔑',
+      icon: <KeyRound className="w-10 h-10" />,
       title: 'End of Lease',
       description: 'Bond-back guarantee cleaning',
     },
     {
       id: 'office' as ServiceType,
-      icon: '🏢',
+      icon: <Building2 className="w-10 h-10" />,
       title: 'Office Cleaning',
       description: 'Commercial space cleaning',
     },
@@ -407,7 +444,7 @@ function Step1ServiceSelection({
                 : 'border-gray-200 hover:border-primary/40 hover:shadow-md'
             }`}
           >
-            <span className="text-4xl">{svc.icon}</span>
+            <span className={`${data.serviceType === svc.id ? 'text-primary' : 'text-gray-400'}`}>{svc.icon}</span>
             <div>
               <div className="text-base font-bold text-dark mb-1">{svc.title}</div>
               <div className="text-xs text-gray-500">{svc.description}</div>
@@ -434,7 +471,7 @@ function Step2APropertyDetails({
       {/* Bedrooms */}
       <div className="mb-6">
         <label className="block text-sm font-semibold text-gray-700 mb-3">
-          🛏️ Number of Bedrooms
+          <BedDouble className="w-4 h-4 inline mr-1" /> Number of Bedrooms
         </label>
         <div className="grid grid-cols-6 gap-2">
           {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -456,7 +493,7 @@ function Step2APropertyDetails({
       {/* Bathrooms */}
       <div className="mb-6">
         <label className="block text-sm font-semibold text-gray-700 mb-3">
-          🚿 Number of Bathrooms
+          <ShowerHead className="w-4 h-4 inline mr-1" /> Number of Bathrooms
         </label>
         <div className="grid grid-cols-6 gap-2">
           {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -602,9 +639,9 @@ function Step3AScheduling({
             </label>
             <div className="grid grid-cols-3 gap-3">
               {[
-                { id: 'morning', label: 'Morning', time: '8AM - 12PM', icon: '🌅' },
-                { id: 'afternoon', label: 'Afternoon', time: '12PM - 4PM', icon: '☀️' },
-                { id: 'evening', label: 'Evening', time: '4PM - 8PM', icon: '🌆' },
+                { id: 'morning', label: 'Morning', time: '8AM - 12PM', icon: <Sunrise className="w-6 h-6" /> },
+                { id: 'afternoon', label: 'Afternoon', time: '12PM - 4PM', icon: <Sun className="w-6 h-6" /> },
+                { id: 'evening', label: 'Evening', time: '4PM - 8PM', icon: <Sunset className="w-6 h-6" /> },
               ].map((slot) => (
                 <button
                   key={slot.id}
@@ -615,7 +652,7 @@ function Step3AScheduling({
                       : 'border-gray-200 hover:border-primary/40'
                   }`}
                 >
-                  <div className="text-2xl mb-1">{slot.icon}</div>
+                  <div className="flex justify-center mb-1 text-gray-500">{slot.icon}</div>
                   <div className="text-sm font-semibold text-dark">{slot.label}</div>
                   <div className="text-xs text-gray-500">{slot.time}</div>
                 </button>
@@ -744,7 +781,7 @@ function Step2BPropertyEOL({
       {/* Storeys */}
       <div className="mb-6">
         <label className="block text-sm font-semibold text-gray-700 mb-3">
-          🏢 Number of Storeys
+          <Building2 className="w-4 h-4 inline mr-1" /> Number of Storeys
         </label>
         <div className="grid grid-cols-4 gap-2">
           {[1, 2, 3, 4].map((n) => (
@@ -766,7 +803,7 @@ function Step2BPropertyEOL({
       {/* Bedrooms */}
       <div className="mb-6">
         <label className="block text-sm font-semibold text-gray-700 mb-3">
-          🛏️ Number of Bedrooms
+          <BedDouble className="w-4 h-4 inline mr-1" /> Number of Bedrooms
         </label>
         <div className="grid grid-cols-6 gap-2">
           {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -788,7 +825,7 @@ function Step2BPropertyEOL({
       {/* Bathrooms */}
       <div>
         <label className="block text-sm font-semibold text-gray-700 mb-3">
-          🚿 Number of Bathrooms
+          <ShowerHead className="w-4 h-4 inline mr-1" /> Number of Bathrooms
         </label>
         <div className="grid grid-cols-6 gap-2">
           {[1, 2, 3, 4, 5, 6].map((n) => (
@@ -852,9 +889,9 @@ function Step3BSchedulingEOL({
           </label>
           <div className="grid grid-cols-3 gap-3">
             {[
-              { id: 'morning', label: 'Morning', time: '8-12', icon: '🌅' },
-              { id: 'afternoon', label: 'Afternoon', time: '12-4', icon: '☀️' },
-              { id: 'evening', label: 'Evening', time: '4-8', icon: '🌆' },
+              { id: 'morning', label: 'Morning', time: '8-12', icon: <Sunrise className="w-6 h-6" /> },
+              { id: 'afternoon', label: 'Afternoon', time: '12-4', icon: <Sun className="w-6 h-6" /> },
+              { id: 'evening', label: 'Evening', time: '4-8', icon: <Sunset className="w-6 h-6" /> },
             ].map((slot) => (
               <button
                 key={slot.id}
@@ -865,7 +902,7 @@ function Step3BSchedulingEOL({
                     : 'border-gray-200 hover:border-primary/40'
                 }`}
               >
-                <div className="text-2xl mb-1">{slot.icon}</div>
+                <div className="flex justify-center mb-1 text-gray-500">{slot.icon}</div>
                 <div className="text-sm font-semibold text-dark">{slot.label}</div>
                 <div className="text-xs text-gray-500">{slot.time}</div>
               </button>
@@ -917,16 +954,30 @@ function Step4BDeepClean({
 
       <div className="space-y-3 mb-6">
         {[
-          { key: 'deepCleanOven', label: '🔥 Oven cleaning', desc: 'Professional oven deep clean' },
+          { key: 'deepCleanOven', icon: <Flame className="w-4 h-4 inline mr-1" />, label: 'Oven cleaning', desc: 'Professional oven deep clean' },
           {
             key: 'deepCleanCarpet',
-            label: '🧹 Carpet steam cleaning',
+            icon: <Brush className="w-4 h-4 inline mr-1" />,
+            label: 'Carpet steam cleaning',
             desc: 'Steam clean all carpets',
           },
-          { key: 'deepCleanWalls', label: '🧽 Wall marks removal', desc: 'Remove scuffs and marks' },
-          { key: 'deepCleanWindows', label: '🪟 Window cleaning', desc: 'Inside & outside windows' },
+          {
+            key: 'deepCleanWalls',
+            icon: <SprayCan className="w-4 h-4 inline mr-1" />,
+            label: 'Wall marks removal',
+            desc: 'Remove scuffs and marks',
+          },
+          {
+            key: 'deepCleanWindows',
+            icon: <PanelTop className="w-4 h-4 inline mr-1" />,
+            label: 'Window cleaning',
+            desc: 'Inside & outside windows',
+          },
         ].map((option) => (
-          <label key={option.key} className="flex items-start gap-3 p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-primary/40 transition-all">
+          <label
+            key={option.key}
+            className="flex items-start gap-3 p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-primary/40 transition-all"
+          >
             <input
               type="checkbox"
               checked={data[option.key as keyof QuoteFormData] as boolean}
@@ -934,7 +985,7 @@ function Step4BDeepClean({
               className="mt-1 w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer"
             />
             <div className="flex-1">
-              <div className="text-sm font-semibold text-dark">{option.label}</div>
+              <div className="text-sm font-semibold text-dark inline-flex items-center">{option.icon}{option.label}</div>
               <div className="text-xs text-gray-500">{option.desc}</div>
             </div>
           </label>
@@ -944,7 +995,7 @@ function Step4BDeepClean({
       {/* Image Upload */}
       <div>
         <label className="block text-sm font-semibold text-gray-700 mb-3">
-          📷 Upload Photos (Optional)
+          <Camera className="w-4 h-4 inline mr-1" /> Upload Photos (Optional)
         </label>
         <p className="text-xs text-gray-500 mb-3">
           Help us give you an accurate quote by uploading photos of areas that need cleaning
@@ -997,22 +1048,27 @@ function Step5BAddons({
 
       <div className="space-y-3">
         {[
-          { key: 'addonGarage', label: '🚗 Garage cleaning', desc: 'Clean and organize garage' },
+          { key: 'addonGarage', icon: <Car className="w-4 h-4 inline mr-1" />, label: 'Garage cleaning', desc: 'Clean and organize garage' },
           {
             key: 'addonBalcony',
-            label: '🌿 Balcony/Patio cleaning',
+            icon: <TreePalm className="w-4 h-4 inline mr-1" />,
+            label: 'Balcony/Patio cleaning',
             desc: 'Outdoor area cleaning',
           },
           {
             key: 'addonCupboard',
-            label: '🗄️ Cupboard inside cleaning',
+            icon: <Archive className="w-4 h-4 inline mr-1" />,
+            label: 'Cupboard inside cleaning',
             desc: 'Deep clean inside cupboards',
           },
-          { key: 'addonFridge', label: '❄️ Fridge inside cleaning', desc: 'Deep clean fridge' },
-          { key: 'addonGarden', label: '🌱 Garden maintenance', desc: 'Basic garden tidying' },
-          { key: 'addonRubbish', label: '🗑️ Rubbish removal', desc: 'Remove unwanted items' },
+          { key: 'addonFridge', icon: <Snowflake className="w-4 h-4 inline mr-1" />, label: 'Fridge inside cleaning', desc: 'Deep clean fridge' },
+          { key: 'addonGarden', icon: <Sprout className="w-4 h-4 inline mr-1" />, label: 'Garden maintenance', desc: 'Basic garden tidying' },
+          { key: 'addonRubbish', icon: <Trash2 className="w-4 h-4 inline mr-1" />, label: 'Rubbish removal', desc: 'Remove unwanted items' },
         ].map((option) => (
-          <label key={option.key} className="flex items-start gap-3 p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-primary/40 transition-all">
+          <label
+            key={option.key}
+            className="flex items-start gap-3 p-4 border-2 border-gray-200 rounded-xl cursor-pointer hover:border-primary/40 transition-all"
+          >
             <input
               type="checkbox"
               checked={data[option.key as keyof QuoteFormData] as boolean}
@@ -1020,7 +1076,7 @@ function Step5BAddons({
               className="mt-1 w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary cursor-pointer"
             />
             <div className="flex-1">
-              <div className="text-sm font-semibold text-dark">{option.label}</div>
+              <div className="text-sm font-semibold text-dark inline-flex items-center">{option.icon}{option.label}</div>
               <div className="text-xs text-gray-500">{option.desc}</div>
             </div>
           </label>
@@ -1190,7 +1246,7 @@ function Step2CSpaceDetails({
         {/* Other counts */}
         <div className="grid grid-cols-3 gap-3">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">🪑 Desks</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2"><Armchair className="w-4 h-4 inline mr-1" /> Desks</label>
             <input
               type="number"
               min="0"
@@ -1201,7 +1257,7 @@ function Step2CSpaceDetails({
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">🚿 Bathrooms</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2"><ShowerHead className="w-4 h-4 inline mr-1" /> Bathrooms</label>
             <input
               type="number"
               min="0"
@@ -1212,7 +1268,7 @@ function Step2CSpaceDetails({
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">🍽️ Kitchens</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-2"><UtensilsCrossed className="w-4 h-4 inline mr-1" /> Kitchens</label>
             <input
               type="number"
               min="0"
@@ -1298,7 +1354,7 @@ function Step3CSchedulingOffice({
               />
               <div>
                 <span className="text-sm font-semibold text-dark">
-                  🌅 During office hours (9AM - 5PM)
+                  <Sunrise className="w-4 h-4 inline mr-1" /> During office hours (9AM - 5PM)
                 </span>
                 <p className="text-xs text-gray-500">Clean while your team is working</p>
               </div>
@@ -1313,7 +1369,7 @@ function Step3CSchedulingOffice({
               />
               <div>
                 <span className="text-sm font-semibold text-dark">
-                  🌆 After office hours (5PM - 9PM)
+                  <Sunset className="w-4 h-4 inline mr-1" /> After office hours (5PM - 9PM)
                 </span>
                 <p className="text-xs text-gray-500">Clean when the office is empty</p>
               </div>
@@ -1355,9 +1411,7 @@ function Step4CContact({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            Contact Person *
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">Contact Person *</label>
           <input
             type="text"
             value={data.contactPerson}

@@ -1,4 +1,4 @@
-# Multi-stage Dockerfile for Next.js + PayloadCMS + SQLite
+# Multi-stage Dockerfile for Next.js + PayloadCMS + PostgreSQL
 # Requires `output: 'standalone'` in next.config.mjs
 
 FROM node:22.17.0-alpine AS base
@@ -21,11 +21,10 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Build-time env vars for Payload static page generation
-# Use a TEMPORARY local DB during build (the /data volume doesn't exist during docker build)
-# At runtime, Railway's env vars will override these with the real paths
 ARG PAYLOAD_SECRET
+ARG DATABASE_URL
 ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
-ENV DATABASE_URL=file:./build.db
+ENV DATABASE_URL=${DATABASE_URL}
 
 RUN npm run build
 
@@ -39,8 +38,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Create data directory for Railway Volume mount
-# This will be the mount point for persistent storage (SQLite DB + media)
+# Create data directory for media uploads
 RUN mkdir -p /data/media
 RUN chown -R nextjs:nodejs /data
 

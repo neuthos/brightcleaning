@@ -1,7 +1,9 @@
 'use client'
 
-import { siteConfig } from '@/data'
+import { Leaf, Mail, Shield, Star, UserCheck } from 'lucide-react'
+
 import QuoteWizard from './QuoteWizard'
+import { siteConfig } from '@/data'
 
 interface HeroProps {
   city?: string
@@ -41,22 +43,21 @@ export default function Hero({ city, state, suburbs }: HeroProps) {
 
             {/* Heading */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-[3.75rem] font-extrabold text-dark leading-tight mb-5">
-              Professional House Cleaning{' '}
-              <span className="text-primary">{locationText}</span>
+              Professional House Cleaning <span className="text-primary">{locationText}</span>
             </h1>
 
             {/* Subtitle */}
             <p className="text-base sm:text-lg text-gray-600 mb-8 max-w-xl leading-relaxed">
               {subtitleText}{' '}
-              <span className="text-primary font-semibold">
-                Get a free quote today!
-              </span>
+              <span className="text-primary font-semibold">Get a free quote today!</span>
             </p>
 
             {/* City suburb tags (for location pages) */}
             {city && suburbs && suburbs.length > 0 && (
               <div className="mb-8">
-                <p className="text-sm text-gray-500 mb-3 font-medium">Where are you looking for a cleaner?</p>
+                <p className="text-sm text-gray-500 mb-3 font-medium">
+                  Where are you looking for a cleaner?
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {suburbs.slice(0, 8).map((suburb) => (
                     <span
@@ -73,16 +74,17 @@ export default function Hero({ city, state, suburbs }: HeroProps) {
             {/* Trust badges */}
             <div className="flex flex-wrap gap-5 pt-6 border-t border-gray-200">
               {[
-                { icon: '🛡️', text: 'Fully Insured' },
-                { icon: '👤', text: 'Same Cleaners and Time' },
-                { icon: '⭐', text: 'Satisfaction Guarantee' },
-                { icon: '🌿', text: 'Eco Friendly Products' },
+                { icon: <Shield className="w-5 h-5 text-primary" />, text: 'Fully Insured' },
+                {
+                  icon: <UserCheck className="w-5 h-5 text-primary" />,
+                  text: 'Same Cleaners and Time',
+                },
+                { icon: <Star className="w-5 h-5 text-primary" />, text: 'Satisfaction Guarantee' },
+                { icon: <Leaf className="w-5 h-5 text-primary" />, text: 'Eco Friendly Products' },
               ].map((badge) => (
                 <div key={badge.text} className="flex items-center gap-2">
-                  <span className="text-lg">{badge.icon}</span>
-                  <span className="text-gray-700 text-sm font-bold">
-                    {badge.text}
-                  </span>
+                  {badge.icon}
+                  <span className="text-gray-700 text-sm font-bold">{badge.text}</span>
                 </div>
               ))}
             </div>
@@ -93,7 +95,8 @@ export default function Hero({ city, state, suburbs }: HeroProps) {
                 href={`mailto:${siteConfig.email}`}
                 className="inline-flex items-center gap-2 bg-dark hover:bg-dark-lighter text-white text-sm font-semibold px-6 py-3 rounded-full no-underline transition-all hover:shadow-lg"
               >
-                ✉️ Email Us
+                <Mail className="w-4 h-4" />
+                <p>Email Us</p>
               </a>
               <span className="text-sm text-gray-400 hidden sm:inline">or use the wizard →</span>
             </div>

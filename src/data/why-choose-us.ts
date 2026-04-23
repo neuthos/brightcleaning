@@ -1,7 +1,9 @@
+export type USPIconKey = 'shield' | 'check' | 'star' | 'leaf' | 'user' | 'wrench'
+
 export interface USP {
   title: string
   description: string
-  icon: string
+  iconKey: USPIconKey
 }
 
 export const whyChooseUs: USP[] = [
@@ -9,36 +11,36 @@ export const whyChooseUs: USP[] = [
     title: 'Trusted & Insured',
     description:
       'All our cleaners are fully insured, police checked, and background-verified. Your home is in safe hands.',
-    icon: '🛡️',
+    iconKey: 'shield',
   },
   {
     title: 'NDIS Specialist',
     description:
       'We are offering professional cleaning support for NDIS participants.',
-    icon: '✅',
+    iconKey: 'check',
   },
   {
     title: 'Satisfaction Guarantee',
     description:
       "Not happy? We'll come back and re-clean at no extra cost. Your satisfaction is our priority.",
-    icon: '⭐',
+    iconKey: 'star',
   },
   {
     title: 'Eco-Friendly Products',
     description:
       'We use environmentally friendly, non-toxic cleaning products that are safe for your family and pets.',
-    icon: '🌿',
+    iconKey: 'leaf',
   },
   {
     title: 'Same Cleaner and Time',
     description:
       'Enjoy the consistency of the same trusted cleaner at your preferred time, every visit.',
-    icon: '👤',
+    iconKey: 'user',
   },
   {
     title: 'We Bring Everything',
     description:
       'We bring equipment and product to your home.',
-    icon: '🧰',
+    iconKey: 'wrench',
   },
 ]

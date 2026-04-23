@@ -1,5 +1,6 @@
 'use client'
 
+import { ChevronDown, Mail, MapPin } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 import Image from 'next/image'
@@ -82,15 +83,10 @@ export default function Navbar() {
               onClick={() => setLocationsOpen(!locationsOpen)}
               className="flex items-center gap-1 text-sm font-bold text-gray-600 hover:text-primary transition-colors bg-transparent border-none cursor-pointer py-1"
             >
-              📍 Locations
-              <svg
+              <MapPin className="w-4 h-4" /> Locations
+              <ChevronDown
                 className={`w-4 h-4 transition-transform ${locationsOpen ? 'rotate-180' : ''}`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
+              />
             </button>
 
             {locationsOpen && (
@@ -112,9 +108,10 @@ export default function Navbar() {
           {/* Email CTA */}
           <a
             href={`mailto:${siteConfig.email}`}
-            className="bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-5 py-2.5 rounded-full no-underline transition-all hover:shadow-lg hover:shadow-primary/30 ml-2"
+            className="bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-5 py-2.5 rounded-full no-underline transition-all hover:shadow-lg hover:shadow-primary/30 ml-2 flex items-center gap-2"
           >
-            ✉️ Email Us
+            <Mail className="w-4 h-4" />
+            <p>Email Us</p>
           </a>
         </div>
 
@@ -122,9 +119,9 @@ export default function Navbar() {
         <div className="flex lg:hidden items-center gap-3">
           <a
             href={`mailto:${siteConfig.email}`}
-            className="bg-primary text-white text-xs font-semibold px-3 py-2 rounded-full no-underline"
+            className="inline-flex items-center gap-1 bg-primary text-white text-xs font-semibold px-3 py-2 rounded-full no-underline"
           >
-            ✉️ Email
+            <Mail className="w-3 h-3" /> Email
           </a>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -137,9 +134,7 @@ export default function Navbar() {
               }`}
             />
             <span
-              className={`block w-5 h-0.5 bg-dark transition-all ${
-                menuOpen ? 'opacity-0' : ''
-              }`}
+              className={`block w-5 h-0.5 bg-dark transition-all ${menuOpen ? 'opacity-0' : ''}`}
             />
             <span
               className={`block w-5 h-0.5 bg-dark transition-all ${
@@ -171,7 +166,7 @@ export default function Navbar() {
           {/* Mobile Locations */}
           <div className="py-3 border-b border-gray-100">
             <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 block">
-              📍 Our Locations
+              <MapPin className="w-3 h-3 inline" /> Our Locations
             </span>
             <div className="flex flex-wrap gap-2 mt-2">
               {locationLinks.map((loc) => (
@@ -190,9 +185,10 @@ export default function Navbar() {
           {/* Mobile email CTA */}
           <a
             href={`mailto:${siteConfig.email}`}
-            className="bg-primary text-white text-center font-semibold py-3 rounded-full no-underline mt-3"
+            className="bg-primary text-white text-center font-semibold py-3 rounded-full no-underline mt-3 flex items-center px-5"
           >
-            ✉️ Email Us
+            <Mail className="w-4 h-4 inline mr-1" />
+            <p>Email Us</p>
           </a>
         </div>
       </div>

@@ -1,18 +1,32 @@
+import type { ReactNode } from 'react'
+
 export interface Service {
   id: string
   title: string
   description: string
-  icon: string // emoji for now, replace with SVG later
+  icon: ReactNode
   features: string[]
 }
 
-export const services: Service[] = [
+// Icons are applied in the Services component to keep data serializable-friendly
+// This file just stores the icon key, actual Lucide icon is mapped in the component
+export type ServiceIconKey = 'home' | 'key' | 'building' | 'accessibility' | 'sparkles' | 'flame'
+
+export interface ServiceData {
+  id: string
+  title: string
+  description: string
+  iconKey: ServiceIconKey
+  features: string[]
+}
+
+export const services: ServiceData[] = [
   {
     id: 'house-cleaning',
     title: 'House Cleaning',
     description:
       'Regular house cleaning tailored to your needs. Our trusted cleaners leave your home spotless every time.',
-    icon: '🏠',
+    iconKey: 'home',
     features: [
       'Kitchen & bathroom deep clean',
       'Vacuuming & mopping all floors',
@@ -25,7 +39,7 @@ export const services: Service[] = [
     title: 'End of Lease Cleaning',
     description:
       'Get your full bond back with our comprehensive end-of-lease cleaning. We guarantee satisfaction or we come back for free.',
-    icon: '🔑',
+    iconKey: 'key',
     features: [
       'Bond-back guarantee',
       'Full property deep clean',
@@ -38,7 +52,7 @@ export const services: Service[] = [
     title: 'Office & Commercial Cleaning',
     description:
       'Professional office cleaning services to keep your workspace hygienic, productive and welcoming for staff and clients.',
-    icon: '🏢',
+    iconKey: 'building',
     features: [
       'Daily or weekly schedules',
       'Desk & workstation sanitisation',
@@ -51,7 +65,7 @@ export const services: Service[] = [
     title: 'NDIS Cleaning',
     description:
       'We are offering professional cleaning support for NDIS participants with compassionate and reliable service.',
-    icon: '♿',
+    iconKey: 'accessibility',
     features: [
       'NDIS specialist support',
       'Flexible scheduling',
@@ -64,7 +78,7 @@ export const services: Service[] = [
     title: 'Spring Cleaning',
     description:
       'Intensive deep cleaning for homes that need extra attention. Perfect for spring cleaning or move-in preparation.',
-    icon: '✨',
+    iconKey: 'sparkles',
     features: [
       'Behind & under furniture',
       'Inside cabinets & wardrobes',
@@ -77,7 +91,7 @@ export const services: Service[] = [
     title: 'Oven Cleaning',
     description:
       'Professional deep cleaning for ovens and kitchen appliances, removing grease and buildup for a sparkling finish.',
-    icon: '🔥',
+    iconKey: 'flame',
     features: [
       'Deep grease removal',
       'Rack and tray cleaning',

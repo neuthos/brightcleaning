@@ -2,7 +2,7 @@ export { siteConfig } from './site-config'
 export type { SiteConfig } from './site-config'
 
 export { services } from './services'
-export type { Service } from './services'
+export type { ServiceData } from './services'
 
 export { serviceAreas } from './service-areas'
 export type { ServiceArea } from './service-areas'
